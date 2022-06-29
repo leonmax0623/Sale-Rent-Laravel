@@ -15,7 +15,7 @@
                     <input type="password" name="current-password" placeholder="{{__("Current Password")}}" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>{{__("New Password")}}</label>
+                    <label>{{__("New Password Maximus")}}</label>
                     <input type="password" name="new-password" placeholder="{{__("New Password")}}" class="form-control">
                                    </div>
                 <div class="form-group">
