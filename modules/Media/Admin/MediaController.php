@@ -255,6 +255,53 @@ class MediaController extends Controller
         $infoWebP = $newFileName3. '.webp';
         $check = $file->storeAs($folder, $info,'uploads');
 
+        if($file->getClientOriginalExtension() == 'mp4') {
+
+            try {
+
+                $fileObj = new MediaFile();
+
+                $fileObj->file_name = $newFileName2;
+
+                $fileObj->file_path = $check;
+
+                $fileObj->file_size = $file->getSize();
+
+                $fileObj->file_type = $file->getMimeType();
+
+                $fileObj->file_extension = $file->getClientOriginalExtension();
+
+            
+
+
+                $fileObj->save();
+
+                // Sizes use for uploaderAdapter:
+
+                // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/deep-dive/upload-adapter.html#the-anatomy-of-the-adapter
+
+                $fileObj->sizes = [
+
+                    'default' => asset('uploads/' . $fileObj->file_path),
+
+                    '150'     => url('media/preview/'.$fileObj->id .'/thumb'),
+
+                    '600'     => url('media/preview/'.$fileObj->id .'/medium'),
+
+                    '1024'    => url('media/preview/'.$fileObj->id .'/large'),
+
+                ];
+
+                return $this->sendSuccess(['data' => $fileObj]);
+
+            } catch (\Exception $exception) {
+
+                Storage::disk('uploads')->delete($check);
+
+                return $this->sendError($exception->getMessage());
+
+            }
+        }
         // Resize images uploads user
         try {
 
@@ -866,7 +913,9 @@ class MediaController extends Controller
 
                     'bmp',
 
-                    'svg'
+                    'svg',
+
+                    'mp4'
 
                 ]);
 
