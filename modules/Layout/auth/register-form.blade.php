@@ -42,6 +42,17 @@
         <input type="password" class="form-control" name="password" autocomplete="off" placeholder="{{__('Password')}}">
         <i class="input-icon field-icon icofont-ui-password"></i>
         <span class="invalid-feedback error error-password"></span>
+        <!-- @if ($errors->any())
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                {{__("Please check the form below for errors")}}
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{!! clean($error) !!}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif -->
     </div>
     <div class="form-group">
         <label for="term">

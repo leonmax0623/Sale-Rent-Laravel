@@ -116,10 +116,15 @@ class UserController extends AdminController
         if ($urow->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
             abort(403);
         }
+        $messages = [
+            'password.regex'         => __('Minimum 1 uppercase letter!'),
+            'password.required'   => __('Password is required field'),
+        ];
         $request->validate([
-            'password'              => 'required|min:6|max:255',
+            'password'              => 'required|min:7|max:30|regex:/[A-Z]/|confirmed',
             'password_confirmation' => 'required',
-        ]);
+        ], $messages);
+        
         $password_confirmation = $request->input('password_confirmation');
         $password = $request->input('password');
         if ($password != $password_confirmation) {
@@ -130,7 +135,7 @@ class UserController extends AdminController
                 if ($urow->id != Auth::user()->id) {
                     $rules['old_password'] = 'required';
                 }
-                $rules['password'] = 'required|string|min:6|confirmed';
+                $rules['password'] = 'required|min:7|max:30|regex:/[A-Z]/|confirmed';
             }
             $this->validate($request, $rules);
             if ($password) {

@@ -152,11 +152,25 @@ class UserController extends FrontendController
             //Current password and new password are same
             return redirect()->back()->with("error", __("New Password cannot be same as your current password. Please choose a different password."));
         }
+        $rules = [
+            'current-password' => 'required',
+            'new-password'   => [
+                'required',
+                'string',
+                'min:7',
+                'max:30',
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+            ],
+        ];
+        $messages = [
+            'new-password.regex'         => __('Minimum 1 uppercase letter!'),
+            'new-password.required'   => __('Password is required field'),
+        ];
         $request->validate([
             'current-password' => 'required',
-            'new-password'     => 'required|string|min:6|confirmed',
-        ]);
-        //Change Password
+            'new-password'     => 'required|string|min:7|max:30|confirmed|regex:/[A-Z]/',
+        ], $messages);
+        
         $user = Auth::user();
         $user->password = bcrypt($request->get('new-password'));
         $user->save();
@@ -261,7 +275,10 @@ class UserController extends FrontendController
             ],
             'password'   => [
                 'required',
-                'string'
+                'string',
+                'min:7',
+                'max:30',
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
             ],
             'phone_code' => ['required'],
             'phone_without_code' => ['required'],
@@ -274,11 +291,13 @@ class UserController extends FrontendController
             'phone.required'      => __('Phone is required field'),
             'email.required'      => __('Email is required field'),
             'email.email'         => __('Email invalidate'),
+            'password.regex'         => __('Minimum 1 uppercase letter!'),
             'password.required'   => __('Password is required field'),
             'first_name.required' => __('The first name is required field'),
             'last_name.required'  => __('The last name is required field'),
             'term.required'       => __('The terms and conditions field is required'),
         ];
+        
         if (ReCaptchaEngine::isEnable() and setting_item("user_enable_register_recaptcha")) {
             $codeCapcha = $request->input('g-recaptcha-response');
             if (!$codeCapcha or !ReCaptchaEngine::verify($codeCapcha)) {
@@ -289,6 +308,7 @@ class UserController extends FrontendController
                 ], 200);
             }
         }
+        // $request->validate($rules, $messages);
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return response()->json([
