@@ -202,6 +202,8 @@ class MediaController extends Controller
 
         $file_type = $request->input('type');
 
+        if($request->input('video')) $file_type = 'default';
+
         if (empty($file)) {
 
             return $this->sendError(__("Please select file"));
@@ -255,7 +257,7 @@ class MediaController extends Controller
         $infoWebP = $newFileName3. '.webp';
         $check = $file->storeAs($folder, $info,'uploads');
 
-        if($file->getClientOriginalExtension() == 'mp4') {
+        if(in_array($file->getClientOriginalExtension(), ['mp4', 'webm', 'avi', 'mov', 'wmv', 'mpeg', 'asf'])) {
 
             try {
 
@@ -522,7 +524,7 @@ class MediaController extends Controller
 
                 'types' => $allowedExts,
 
-                "max_size" => 20000000,
+                "max_size" => 400000000,
 
                 "min_width" => env('ALLOW_IMAGE_MIN_WIDTH', 1024),
 
