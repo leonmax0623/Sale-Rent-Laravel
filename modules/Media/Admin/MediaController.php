@@ -202,6 +202,8 @@ class MediaController extends Controller
 
         $file_type = $request->input('type');
 
+        if($request->input('video')) $file_type = 'default';
+
         if (empty($file)) {
 
             return $this->sendError(__("Please select file"));

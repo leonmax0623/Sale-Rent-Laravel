@@ -129,6 +129,7 @@ window.uploaderModal = new Vue({
                 type:'POST',
                 data:{
                     file_type:this.uploadConfigs.file_type,
+                    video_file: true,
                     page:this.filter.page,
                     s:this.filter.s
                 },
@@ -151,6 +152,7 @@ window.uploaderModal = new Vue({
                 var d = new FormData();
                 d.append('file',files[i]);
                 d.append('type',this.uploadConfigs.file_type);
+                d.append('video',true);
                 me.isLoading = true;
                 $.ajax({
                     url:myTravel.url+'/admin/module/media/store',

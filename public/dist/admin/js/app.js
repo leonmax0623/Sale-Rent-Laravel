@@ -5266,6 +5266,7 @@ __webpack_require__.r(__webpack_exports__);
           data: {
 
             file_type: this.uploadConfigs.file_type,
+            video_file: true,
 
             page: this.filter.page,
 
@@ -5312,6 +5313,7 @@ __webpack_require__.r(__webpack_exports__);
           d.append('file', files[i]);
 
           d.append('type', this.uploadConfigs.file_type);
+          d.append('video',true);
 
           me.isLoading = true;
 
@@ -5792,7 +5794,7 @@ __webpack_require__.r(__webpack_exports__);
           data: {
 
             file_type: this.uploadConfigs.file_type,
-
+            video_file: true,
             page: this.filter.page,
 
             s: this.filter.s
@@ -5838,6 +5840,8 @@ __webpack_require__.r(__webpack_exports__);
           d.append('file', files[i]);
 
           d.append('type', this.uploadConfigs.file_type);
+          d.append('video',true);
+
 
           me.isLoading = true;
 
