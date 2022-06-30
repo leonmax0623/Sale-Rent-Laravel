@@ -880,6 +880,7 @@ class MediaController extends Controller
         }
 
         $file_type = $request->input('file_type', 'image');
+        $video_files = $request->input('video_file', false);
 
         $page = $request->input('page', 1);
 
@@ -898,45 +899,44 @@ class MediaController extends Controller
              $model2->where('create_user', Auth::id());
 
         }
-
-        switch ($file_type) {
-
-            case "image":
-
-                $model->whereIn('file_extension', [
-
-                    'png',
-
-                    'jpg',
-
-                    'jpeg',
-
-                    'gif',
-
-                    'bmp',
-
-                    'svg',
-
-                    'mp4'
-
-                ]);
-
-                $model2->whereIn('file_extension', [
-
-                    'png',
-
-                    'jpg',
-
-                    'jpeg',
-
-                    'gif',
-
-                    'bmp'
-
-                ]);
-
-                break;
-
+        if(!$video_files) {
+            switch ($file_type) {
+    
+                case "image":
+    
+                    $model->whereIn('file_extension', [
+    
+                        'png',
+    
+                        'jpg',
+    
+                        'jpeg',
+    
+                        'gif',
+    
+                        'bmp',
+    
+                        'svg',
+    
+                    ]);
+    
+                    $model2->whereIn('file_extension', [
+    
+                        'png',
+    
+                        'jpg',
+    
+                        'jpeg',
+    
+                        'gif',
+    
+                        'bmp'
+    
+                    ]);
+    
+                    break;
+    
+            }
         }
 
         if ($s) {
