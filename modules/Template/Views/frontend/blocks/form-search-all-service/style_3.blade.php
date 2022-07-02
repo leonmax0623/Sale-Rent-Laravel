@@ -256,8 +256,7 @@
     </div>
 @endif
 <script>
-    $(window).on("load", function(){
-
+    document.addEventListener("DOMContentLoaded", function() {
         var video_jq = $('#showcase-video-1')
         var video_node = video_jq.get(0);
     
