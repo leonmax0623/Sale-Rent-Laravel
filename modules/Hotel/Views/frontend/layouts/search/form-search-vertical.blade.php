@@ -38,7 +38,7 @@
                 @endforeach
             @endif
             <div class="text-center">
-                <button id="hotel_search_button" type="submit" class="btn btn-primary height-60 w-100 font-weight-bold mb-xl-0 mb-lg-1 transition-3d-hover"><i class="flaticon-magnifying-glass mr-2 font-size-17"></i>Search</button>
+                <button id="hotel_search_button" type="submit" class="btn btn-primary height-60 w-100 font-weight-bold mb-xl-0 mb-lg-1 transition-3d-hover"><i class="flaticon-magnifying-glass mr-2 font-size-17"></i>Search Maximus</button>
             </div>
         </form>
     </div>

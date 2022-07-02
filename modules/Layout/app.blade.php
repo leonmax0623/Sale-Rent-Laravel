@@ -253,6 +253,8 @@
 
     @yield('head')
 
+    @yield('filterScript')
+
     {{--Custom Style--}}
 
     <link href="{{ route('core.style.customCss') }}" rel="stylesheet">
