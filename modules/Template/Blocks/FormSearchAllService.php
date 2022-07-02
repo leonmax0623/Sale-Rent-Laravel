@@ -103,7 +103,7 @@ class FormSearchAllService extends BaseBlock
         $model['list_slider'] = $model['list_slider'] ?? "";
         $model['modelBlock'] = $model;
         $model['seatType'] =  SeatType::get();
-        $model['bg_video'] = (pathinfo($model['bg_image_url'], PATHINFO_EXTENSION) == 'mp4') ? true : false ;
+        $model['bg_video'] = (in_array(pathinfo($model['bg_image_url'], PATHINFO_EXTENSION), ['mp4', 'webm', 'avi', 'mov', 'wmv', 'mpeg', 'asf'])) ? true : false ;
 
         return view('Template::frontend.blocks.form-search-all-service.'.$model['style'], $model);
     }
